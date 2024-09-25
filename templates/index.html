@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Insurance Policy Search</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+</head>
+<body>
+    <h1>Insurance Policies</h1>
+    <h2>Search by policy number</h2>
+    
+    <form id="searchForm" method="GET" action="" onsubmit="redirectToPolicy(event)">
+        <input type="text" id="policyNumber" name="policy_number" placeholder="Enter Policy Number" required>
+        <button type="submit">Search</button>
+    </form>
+
+    <script>
+        function redirectToPolicy(event) {
+            event.preventDefault();  // Prevent the default form submission
+            const policyNumber = document.getElementById('policyNumber').value;
+            window.location.href = `/api/policies/${policyNumber}`;  // Redirect to the policy detail endpoint
+        }
+    </script>
+
+    <h2>All Policy Numbers</h2>
+    <div id="policyList"></div>
+
+    <script>
+        // Function to fetch all policies and display them
+        async function fetchPolicies() {
+            const response = await fetch('/api/policies');
+            const policies = await response.json();
+            const policyList = document.getElementById('policyList');
+            policyList.innerHTML = '';
+            
+            policies.forEach(policy => {
+                const policyDiv = document.createElement('div');
+                policyDiv.innerHTML = `
+                    <p>
+                        Policy Number: ${policy.policy_number}
+                    </p>
+                `;
+                policyList.appendChild(policyDiv);
+            });
+        }
+
+        // Call the fetchPolicies function on page load
+        fetchPolicies();
+    </script>
+
+    <h2>View all Policy Details</h2>
+    <button onclick="window.location.href='/api/policies'">View All Policies</button>
+
+</body>
+</html>
