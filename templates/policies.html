@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>All Policies</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+</head>
+<body>
+    <h1>All Insurance Policies</h1>
+    <ul>
+        {% for policy in policies %}
+            <li>
+                Policy Number: {{ policy.policy_number }} - 
+                Policy Holder Name: {{ policy.policy_holder_name }} - 
+                Status: {{ policy.status }} - 
+                <a href="/api/policies/{{ policy.id }}">View Details</a>
+            </li>
+        {% endfor %}
+    </ul>
+</body>
+</html>
