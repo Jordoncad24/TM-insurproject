@@ -140,7 +140,3 @@ Given more time, the following improvements could be made to enhance the applica
    - Expand the documentation to include more detailed instructions, troubleshooting tips, and feature explanations.
 
 By addressing these areas, the application can achieve higher reliability, security, and user satisfaction.
-
----
-
-Feel free to reach out with any questions or suggestions regarding the **TM-InsurProject**!
