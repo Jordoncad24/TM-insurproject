@@ -17,14 +17,14 @@ mongo = PyMongo(app)
 def home():
     return render_template('index.html')  # Render the index.html file
 
-@app.route('/api/policies', methods=['GET'])
+@app.route('/api/policies', methods=['GET']) #Method for getting all policies within the database 
 def get_all_policies():
     try:
         policies_collection = mongo.db.policies
         policies = policies_collection.find()
         policies_list = []
 
-        for policy in policies:
+        for policy in policies: #List all details for all of the policies
             policies_list.append({
                 'id': str(policy['_id']),
                 'policy_number': policy.get('policy_number'),
@@ -40,7 +40,7 @@ def get_all_policies():
     except Exception as e:
         return jsonify({"error": "An unexpected error occurred", "message": str(e)}), 500
 
-@app.route('/api/policies/search', methods=['GET'])
+@app.route('/api/policies/search', methods=['GET']) #Search for a paticular policy number
 def search_policy():
     policy_number = request.args.get('policy_number', '').strip()
     try:
@@ -64,7 +64,7 @@ def search_policy():
     except Exception as e:
         return jsonify({"error": "An unexpected error occurred", "message": str(e)}), 500
 
-@app.route('/api/policies/<policy_number>', methods=['GET'])
+@app.route('/api/policies/<policy_number>', methods=['GET']) #Getting a paticular policy number
 def get_policy_by_number(policy_number):
     try:
         policy = mongo.db.policies.find_one({'policy_number': policy_number})
